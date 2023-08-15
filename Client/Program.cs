@@ -13,7 +13,7 @@ builder.Services.AddGrpcClient<Weather.WeatherClient>(client =>
 {
     var urlServer = builder.Configuration.GetSection("GrpcServer");
     client.Address = new Uri(urlServer.Value);
-});
+}).ConfigureChannel(x => { x.MaxRetryAttempts = 3; });
 
 
 var app = builder.Build();
